@@ -1,0 +1,50 @@
+@import '../../styles';
+@import 'Modal';
+
+.jse-modal.jse-sort {
+  .jse-modal-contents {
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    th,
+    td {
+      text-align: left;
+      vertical-align: middle;
+      font-weight: normal;
+      padding-bottom: $padding;
+
+      input.jse-path {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 6px 16px; // TODO: define variables for those props
+        border: $input-border;
+        border-radius: $input-radius;
+        font-family: inherit;
+        font-size: inherit;
+        background: inherit;
+        color: inherit;
+        outline: none;
+
+        &:read-only {
+          background: $input-background-readonly;
+        }
+      }
+
+      :global(.svelte-select input) {
+        box-sizing: border-box;
+      }
+    }
+  }
+
+  .jse-space {
+    height: 200px; // Trick for the property select box dropdown to be fully visible
+
+    .jse-error {
+      color: $error-color;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+import type { ContentParseError, ContentValidationErrors, ContextMenuColumn, ContextMenuRow, MenuButton, MenuDropDownButton, MenuLabel, MenuSeparator, MenuSpace, ValidationError, NestedValidationError, SvelteActionRenderer, SvelteComponentRenderer } from './types.js';
+export declare function isMenuSpace(item: unknown): item is MenuSpace;
+export declare function isMenuSeparator(item: unknown): item is MenuSeparator;
+export declare function isMenuLabel(item: unknown): item is MenuLabel;
+export declare function isMenuButton(item: unknown): item is MenuButton;
+export declare function isMenuDropDownButton(item: unknown): item is MenuDropDownButton;
+export declare function isContextMenuRow(item: unknown): item is ContextMenuRow;
+export declare function isContextMenuColumn(item: unknown): item is ContextMenuColumn;
+export declare function isContentParseError(contentErrors: unknown): contentErrors is ContentParseError;
+export declare function isContentValidationErrors(contentErrors: unknown): contentErrors is ContentValidationErrors;
+export declare function isValidationError(value: unknown): value is ValidationError;
+export declare function isNestedValidationError(value: unknown): value is NestedValidationError;
+export declare function isSvelteComponentRenderer(value: unknown): value is SvelteComponentRenderer;
+export declare function isSvelteActionRenderer(value: unknown): value is SvelteActionRenderer;

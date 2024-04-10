@@ -1,0 +1,30 @@
+@import '../../../styles';
+@import '../../../components/controls/EditableDivShared';
+
+.jse-enum-value {
+  background: $hover-background-color;
+  border: none;
+  padding: 0;
+
+  font-family: inherit;
+  font-size: inherit;
+
+  cursor: pointer;
+  outline: none;
+
+  &.jse-selected {
+    background: $selection-background-color;
+    color: inherit;
+  }
+
+  &.jse-value:focus {
+    // override the color to black when editing
+    color: $text-color;
+  }
+}
+
+:global(.jse-json-node.jse-selected) {
+  .jse-enum-value {
+    background: transparent;
+  }
+}

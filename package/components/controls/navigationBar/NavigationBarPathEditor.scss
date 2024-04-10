@@ -1,0 +1,55 @@
+@import '../../../styles';
+
+.jse-navigation-bar-path-editor {
+  flex: 1;
+  display: flex;
+  border: $edit-outline;
+  background: $background-color;
+
+  input.jse-navigation-bar-text {
+    flex: 1;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 0 5px 1px;
+    background: $background-color;
+    color: $text-color;
+    border: none;
+    outline: none;
+  }
+
+  button {
+    border: none;
+    background: $background-color;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 80%;
+    color: inherit;
+  }
+
+  button.jse-navigation-bar-copy {
+    &.copied {
+      color: $message-success-background;
+    }
+  }
+
+  button.jse-navigation-bar-validation-error {
+    color: $error-color;
+  }
+
+  &.error {
+    border-color: $error-color;
+
+    input.jse-navigation-bar-text {
+      color: $error-color;
+    }
+  }
+
+  .jse-copied-text {
+    background: $message-success-background;
+    color: $message-success-color;
+    position: relative;
+    margin: 2px;
+    padding: 0 5px;
+    border-radius: $border-radius;
+  }
+}

@@ -1,0 +1,24 @@
+@import '../../../styles';
+
+.jse-context-menu-pointer {
+  position: absolute;
+  top: calc(-0.5 * $context-menu-pointer-size);
+  right: calc(-0.5 * $context-menu-pointer-size);
+  width: $context-menu-pointer-size;
+  height: $context-menu-pointer-size;
+  padding: 0;
+  margin: 0;
+
+  cursor: pointer;
+  background: transparent;
+
+  border-radius: 2px;
+  background: $context-menu-pointer-background;
+  color: $context-menu-pointer-color;
+  border: none;
+  box-shadow: $controls-box-shadow;
+
+  &:hover {
+    background: $context-menu-pointer-background-highlight;
+  }
+}

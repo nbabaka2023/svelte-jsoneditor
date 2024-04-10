@@ -1,0 +1,22 @@
+@import '../../../styles';
+
+.jse-color-picker-button {
+  font-size: $font-size-mono;
+
+  width: $color-picker-button-size;
+  height: $color-picker-button-size;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 2px 0 0;
+  display: inline-flex;
+  vertical-align: top;
+
+  border: 1px solid $text-color;
+  border-radius: 2px;
+  background: inherit;
+  outline: none;
+}
+
+.jse-color-picker-button:not(.jse-readonly) {
+  cursor: pointer;
+}

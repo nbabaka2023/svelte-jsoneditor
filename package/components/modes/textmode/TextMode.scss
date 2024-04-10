@@ -1,0 +1,193 @@
+@import '../../../styles';
+
+.jse-text-mode {
+  --internal-key-color: #{$key-color};
+  --internal-value-color-number: #{$value-color-number};
+  --internal-value-color-boolean: #{$value-color-boolean};
+  --internal-value-color-string: #{$value-color-string};
+  --internal-value-color-null: #{$value-color-null};
+  flex: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background: $background-color;
+
+  &.no-main-menu {
+    border-top: $main-border;
+  }
+
+  .jse-contents {
+    flex: 1;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 0;
+    min-height: 0;
+
+    border-left: $main-border;
+    border-right: $main-border;
+
+    &:last-child {
+      border-bottom: $main-border;
+    }
+
+    &.jse-hidden {
+      // the code mirror editor must stay rendered
+      // and must keep height, else it will get into
+      // an infinite loop when rendering it again.
+      visibility: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    :global(.cm-editor) {
+      flex: 1;
+      overflow: hidden;
+
+      :global(.cm-scroller) {
+        font-family: $font-family-mono;
+        font-size: $font-size-mono;
+        line-height: $line-height;
+        color: $delimiter-color;
+      }
+
+      :global(.cm-gutters) {
+        background: $panel-background;
+        color: $panel-color-readonly;
+        border-right: $panel-border;
+      }
+
+      :global(.cm-activeLine),
+      :global(.cm-activeLineGutter) {
+        background: $active-line-background-color;
+      }
+
+      :global(.cm-selectionBackground) {
+        background: $selection-background-color;
+      }
+
+      :global(.cm-searchMatch) {
+        background-color: $search-match-color;
+        outline: $search-match-outline;
+      }
+
+      :global(.cm-searchMatch.cm-searchMatch-selected) {
+        background-color: $search-match-active-color;
+        outline: $search-match-active-outline;
+      }
+
+      :global(.cm-selectionMatch) {
+        background-color: $search-match-background-color;
+      }
+
+      :global(.cm-foldPlaceholder) {
+        background: $tag-background;
+        color: $tag-color;
+        border: none;
+        padding: 0 $padding;
+      }
+
+      :global(.cm-tooltip) {
+        font-size: $font-size;
+        font-family: $font-family;
+        color: $tooltip-color;
+        background: $tooltip-background;
+        border: $tooltip-border;
+      }
+
+      :global(.cm-diagnosticAction) {
+        background: $tooltip-action-button-color;
+        background: $tooltip-action-button-background;
+      }
+
+      :global(.cm-panels) {
+        border-bottom: $panel-border;
+      }
+
+      :global(.cm-search) {
+        background: $panel-background;
+        color: $panel-color;
+        font-family: $font-family;
+        font-size: $font-size;
+      }
+
+      :global(.cm-search input) {
+        font-family: $font-family;
+        font-size: $font-size-text-mode-search;
+        color: $input-color;
+        border: $input-border;
+        background: $input-background;
+        margin-right: 2px;
+      }
+
+      :global(.cm-search button) {
+        font-family: $font-family;
+        font-size: $font-size-text-mode-search;
+
+        color: $panel-button-color;
+        background: $panel-button-background;
+
+        border: none;
+        cursor: pointer;
+        text-transform: capitalize;
+        padding: $padding-half $padding;
+        margin: 0;
+
+        &:hover {
+          color: $panel-button-color-highlight;
+          background: $panel-button-background-highlight;
+        }
+      }
+
+      :global(.cm-search label) {
+        font-family: $font-family;
+        font-size: $font-size-text-mode-search;
+        padding-left: $padding;
+      }
+
+      :global(.cm-search label input) {
+        margin-right: 2px;
+      }
+
+      :global(.cm-search button[name='close']) {
+        width: 32px;
+        height: 32px;
+        font-size: 24px;
+        line-height: 24px;
+        padding: 0;
+        right: 0;
+        top: -4px;
+      }
+
+      :global(.cm-cursor-primary) {
+        border-color: $text-color;
+      }
+    }
+
+    .jse-loading-space {
+      flex: 1;
+    }
+
+    .jse-loading {
+      flex: 2;
+      text-align: center;
+      color: $panel-color-readonly;
+      box-sizing: border-box;
+      font-family: $font-family;
+      font-size: $font-size;
+    }
+
+    &.jse-preview {
+      flex: 1;
+      font-family: $font-family-mono;
+      font-size: $font-size-mono;
+      color: $panel-color-readonly;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      padding: 2px;
+    }
+  }
+}

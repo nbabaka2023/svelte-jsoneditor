@@ -1,0 +1,85 @@
+@import '../../styles';
+
+.jse-dropdown-button {
+  flex: 1;
+  line-height: normal;
+
+  $background: $context-menu-background;
+  $background-highlight: $context-menu-background-highlight;
+
+  @include jsoneditor-button;
+  position: relative;
+  padding: 0;
+  display: flex;
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+  }
+
+  button.jse-open-dropdown {
+    @include jsoneditor-button;
+
+    width: 2em;
+    background: $context-menu-background;
+    color: $context-menu-color;
+
+    &.jse-visible {
+      background: $background;
+    }
+
+    &:hover {
+      background: $context-menu-background-highlight;
+    }
+
+    &:focus {
+      z-index: 1;
+    }
+
+    &:disabled {
+      color: $context-menu-color-disabled;
+      background: unset;
+    }
+
+    border-radius: 0;
+  }
+
+  .jse-dropdown-items {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    background: $background;
+    color: $context-menu-color;
+    box-shadow: $controls-box-shadow;
+
+    &.jse-visible {
+      display: block;
+    }
+
+    button {
+      @include jsoneditor-button;
+
+      width: 100%;
+      text-align: left;
+      padding: $padding;
+      margin: 0;
+
+      &:hover {
+        background: $background-highlight;
+      }
+
+      &:disabled {
+        color: $context-menu-color-disabled;
+        background: unset;
+      }
+    }
+  }
+}

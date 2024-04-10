@@ -1,0 +1,56 @@
+@import '../../styles';
+@import 'Modal';
+
+.jse-modal.jse-jsoneditor-modal {
+  .jse-modal-contents {
+    padding-top: 0;
+
+    .jse-label {
+      font-weight: bold;
+      display: block;
+      box-sizing: border-box;
+
+      .jse-label-inner {
+        margin-top: $padding-double;
+        margin-bottom: $padding-half;
+        box-sizing: border-box;
+
+        button {
+          @include jsoneditor-button;
+          font-weight: bold;
+          padding: 0;
+        }
+      }
+    }
+
+    .jse-modal-inline-editor {
+      flex: 1;
+      min-height: 150px;
+      min-width: 0;
+      display: flex;
+
+      --jse-theme-color: #{$modal-editor-theme-color};
+      --jse-theme-color-highlight: #{$modal-editor-theme-color-highlight};
+    }
+  }
+
+  .jse-actions {
+    gap: $padding;
+    align-items: center;
+
+    .jse-error {
+      flex: 1;
+      color: $error-color;
+    }
+
+    button {
+      &.jse-secondary {
+        @include jsoneditor-button-secondary;
+      }
+    }
+  }
+
+  input {
+    @include modal-input-mixin;
+  }
+}

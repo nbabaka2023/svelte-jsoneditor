@@ -1,0 +1,10 @@
+@import '../../../styles';
+
+.jse-timestamp {
+  padding: 0;
+  margin: 0;
+  vertical-align: middle;
+  display: inline-flex;
+
+  color: $value-color-number;
+}

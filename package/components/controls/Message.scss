@@ -1,0 +1,68 @@
+@import '../../styles.scss';
+
+.jse-message {
+  font-family: $font-family-mono;
+  font-size: $font-size-mono;
+
+  padding: $padding;
+  display: flex;
+  gap: $padding;
+  flex-wrap: wrap;
+  align-items: stretch;
+
+  &.jse-success {
+    background: $message-success-background;
+    color: $message-success-color;
+  }
+
+  .jse-text {
+    display: flex;
+    flex: 1;
+    min-width: 60%;
+    align-items: center;
+
+    .jse-text-centered {
+    }
+
+    &.jse-clickable {
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+
+  &.jse-error {
+    background: $message-error-background;
+    color: $message-error-color;
+  }
+
+  &.jse-warning {
+    background: $message-warning-background;
+    color: $message-warning-color;
+  }
+
+  &.jse-info {
+    background: $message-info-background;
+    color: $message-info-color;
+  }
+
+  .jse-actions {
+    display: flex;
+    gap: $padding;
+
+    button.jse-action {
+      @include jsoneditor-button;
+
+      background: $message-action-background;
+      color: inherit;
+
+      padding: $padding-half $padding;
+
+      &:hover {
+        background: $message-action-background-highlight;
+      }
+    }
+  }
+}

@@ -1,0 +1,107 @@
+import { initial, isEmpty } from 'lodash-es';
+import { ValidationSeverity } from '../types.js';
+import { compileJSONPointer } from 'immutable-json-patch';
+import { MAX_AUTO_REPAIRABLE_SIZE, MAX_VALIDATABLE_SIZE } from '../constants.js';
+import { measure } from '../utils/timeUtils.js';
+import { normalizeJsonParseError } from '../utils/jsonUtils.js';
+import { createDebug } from '../utils/debug.js';
+import { jsonrepair } from 'jsonrepair';
+const debug = createDebug('validation');
+/**
+ * Create a flat map with validation errors, where the key is the stringified path
+ * and also create error messages for the parent nodes of the nodes having an error.
+ *
+ * Returns a nested object containing the validation errors
+ */
+export function mapValidationErrors(validationErrors) {
+    const map = {};
+    // first generate a map with the errors themselves
+    validationErrors.forEach((validationError) => {
+        map[compileJSONPointer(validationError.path)] = validationError;
+    });
+    // create error entries for all parent nodes (displayed when the node is collapsed)
+    validationErrors.forEach((validationError) => {
+        let parentPath = validationError.path;
+        while (parentPath.length > 0) {
+            parentPath = initial(parentPath);
+            const parentPointer = compileJSONPointer(parentPath);
+            if (!(parentPointer in map)) {
+                map[parentPointer] = {
+                    isChildError: true,
+                    path: parentPath,
+                    message: 'Contains invalid data',
+                    severity: ValidationSeverity.warning
+                };
+            }
+        }
+    });
+    return map;
+}
+export function validateJSON(json, validator, parser, validationParser) {
+    debug('validateJSON');
+    if (!validator) {
+        return [];
+    }
+    if (parser !== validationParser) {
+        // if needed, convert for example Lossless JSON to native JSON
+        // (like replace bigint or LosslessNumber into regular numbers)
+        const text = parser.stringify(json);
+        const convertedJSON = text !== undefined ? validationParser.parse(text) : undefined;
+        return validator(convertedJSON);
+    }
+    else {
+        return validator(json);
+    }
+}
+export function validateText(text, validator, parser, validationParser) {
+    debug('validateText');
+    if (text.length > MAX_VALIDATABLE_SIZE) {
+        const validationError = {
+            path: [],
+            message: 'Validation turned off: the document is too large',
+            severity: ValidationSeverity.info
+        };
+        return {
+            validationErrors: [validationError]
+        };
+    }
+    if (text.length === 0) {
+        // new, empty document, do not try to parse
+        return null;
+    }
+    try {
+        // parse with the "main" parser (not the validation parser) to get parse errors
+        // (like syntax errors and duplicate keys errors)
+        const json = measure(() => parser.parse(text), (duration) => debug(`validate: parsed json in ${duration} ms`));
+        if (!validator) {
+            return null;
+        }
+        // if needed, parse with the validationParser to be able to feed the json to the validator
+        const convertedJSON = parser === validationParser
+            ? json
+            : measure(() => validationParser.parse(text), (duration) => debug(`validate: parsed json with the validationParser in ${duration} ms`));
+        // actually validate the json
+        const validationErrors = measure(() => validator(convertedJSON), (duration) => debug(`validate: validated json in ${duration} ms`));
+        return !isEmpty(validationErrors) ? { validationErrors } : null;
+    }
+    catch (err) {
+        const isRepairable = measure(() => canAutoRepair(text, parser), (duration) => debug(`validate: checked whether repairable in ${duration} ms`));
+        const parseError = normalizeJsonParseError(text, err.message || err.toString());
+        return {
+            parseError,
+            isRepairable
+        };
+    }
+}
+function canAutoRepair(text, parser) {
+    if (text.length > MAX_AUTO_REPAIRABLE_SIZE) {
+        return false;
+    }
+    try {
+        parser.parse(jsonrepair(text));
+        return true;
+    }
+    catch (err) {
+        return false;
+    }
+}

@@ -1,0 +1,157 @@
+@import 'themes/defaults.scss';
+
+$pressed-button-margin: 2px;
+$input-padding: 5px;
+$search-box-offset: 10px;
+$navigation-bar-height: 27px; // TODO: having this hardcoded is ugly
+$search-box-offset-navigation-bar: $search-box-offset + $navigation-bar-height;
+$border-radius: 3px;
+
+$padding-half: calc(0.5 * $padding);
+$padding-double: calc(2 * $padding);
+$menu-padding: 5px;
+$bottom-height: 5px;
+$contents-padding: 2px;
+$contents-min-height: 150px;
+$errors-overview-max-height: 25%;
+
+@mixin jsoneditor-button {
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-family: $font-family;
+  font-size: $font-size;
+  padding: $menu-padding;
+  margin: 0;
+}
+
+@mixin jsoneditor-context-menu-button {
+  @include jsoneditor-button;
+
+  flex: 1;
+  white-space: nowrap;
+  padding: $padding;
+  color: inherit;
+
+  &:hover {
+    background: $context-menu-background-highlight;
+  }
+
+  &:focus {
+    background: $context-menu-background-highlight;
+    z-index: 1;
+  }
+
+  &:disabled {
+    color: $context-menu-color-disabled;
+    background: unset;
+  }
+
+  &.left {
+    text-align: left;
+  }
+
+  :global(svg) {
+    width: 16px;
+  }
+}
+
+@mixin jsoneditor-button-primary {
+  @include jsoneditor-button;
+
+  background: $button-primary-background;
+  color: $button-primary-color;
+  padding: $padding $padding-double;
+  border-radius: $border-radius;
+
+  &:hover {
+    background: $button-primary-background-highlight;
+  }
+
+  &:disabled {
+    background: $button-primary-background-disabled;
+  }
+}
+
+@mixin jsoneditor-button-secondary {
+  @include jsoneditor-button;
+
+  background: $button-secondary-background;
+  color: $button-secondary-color;
+  padding: $padding $padding-double;
+  border-radius: $border-radius;
+
+  &:hover {
+    background: $button-secondary-background-highlight;
+  }
+
+  &:disabled {
+    background: $button-secondary-background-disabled;
+  }
+}
+
+@mixin modal-input-mixin {
+  border: $input-border;
+  outline: none;
+  box-sizing: border-box;
+  padding: $padding-half;
+  font-family: $font-family-mono;
+  font-size: $font-size-mono;
+  color: inherit;
+  background: $input-background;
+
+  &:focus {
+    border: $input-border-focus;
+  }
+
+  &:read-only {
+    background: $input-background-readonly;
+  }
+}
+
+@mixin jse-modal-menu-button {
+  border: none;
+  background: transparent;
+  min-width: 32px;
+  color: inherit;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+@mixin jse-column-header-mixin {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  display: flex;
+  gap: $padding;
+  padding: $padding-half $padding $padding-half $padding-half;
+  width: 100%;
+
+  &:hover {
+    background: $table-header-background-highlight;
+  }
+
+  &:not(&.jse-readonly) {
+    cursor: pointer;
+  }
+}
+
+@mixin jse-modal-style {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+
+  font-family: $font-family;
+  font-size: $font-size;
+  line-height: normal;
+  background: $modal-background;
+  color: $text-color;
+}

@@ -1,0 +1,17 @@
+@import '../../styles';
+
+.jse-header {
+  display: flex;
+  background: $theme-color;
+  color: $menu-color;
+
+  .jse-title {
+    flex: 1;
+    padding: $input-padding;
+    vertical-align: middle;
+  }
+
+  button {
+    @include jse-modal-menu-button;
+  }
+}
